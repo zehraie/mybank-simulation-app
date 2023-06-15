@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.util.Date;
-import java.util.UUID;
 
 @Controller
 public class AccountController {
@@ -36,7 +35,7 @@ public class AccountController {
     public String getCreateForm(Model model){
 
         //empty account object provided
-        model.addAttribute("account", AccountDTO.builder().build());
+        model.addAttribute("account", new AccountDTO());
         //account type enum needs to fill dropdown
         model.addAttribute("accountTypes", AccountType.values());
         return "account/create-account";
@@ -63,7 +62,7 @@ public class AccountController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteAccount(@PathVariable("id") UUID id){
+    public String deleteAccount(@PathVariable("id") Long id){
         System.out.println(id);
 
         //trigger deleteAccount method
@@ -73,7 +72,7 @@ public class AccountController {
     }
 
     @GetMapping("/activate/{id}")
-    public String activateAccount(@PathVariable("id") UUID id){
+    public String activateAccount(@PathVariable("id") Long id){
 
         accountService.activateAccount(id);
 

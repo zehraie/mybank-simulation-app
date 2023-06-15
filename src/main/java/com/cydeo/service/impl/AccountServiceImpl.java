@@ -24,7 +24,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountDTO createNewAccount(BigDecimal balance, Date creationDate, AccountType accountType, Long userId) {
        //we need to create Account object
-        AccountDTO accountDTO = AccountDTO.builder().id(UUID.randomUUID())
+        AccountDTO accountDTO = AccountDTO.builder.id(UUID.randomUUID())
                     .userId(userId).balance(balance).accountType(accountType).creationDate(creationDate)
                     .accountStatus(AccountStatus.ACTIVE).build();
         //save into the database(repository)
@@ -41,7 +41,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void deleteAccount(UUID id) {
+    public void deleteAccount(Long id) {
         //find the account object based on id
         AccountDTO accountDTO = accountRepository.findById(id);
         //update the accountStatus of that object.
@@ -49,7 +49,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void activateAccount(UUID id) {
+    public void activateAccount(Long id) {
         //find the account object based on id
         AccountDTO accountDTO = accountRepository.findById(id);
 
@@ -59,7 +59,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountDTO retrieveById(UUID id) {
+    public AccountDTO retrieveById(Long id) {
 
         return accountRepository.findById(id);
     }

@@ -107,7 +107,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     }
 
-    private void findAccountById(UUID id) {
+    private void findAccountById(Long id) {
         accountRepository.findById(id);
     }
 
