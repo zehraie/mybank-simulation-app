@@ -44,8 +44,8 @@ public class AccountController {
     //create method to capture information from UI,
     //print them on the console.
     //trigger createAccount method, create the account based on user input.
-
-    @PostMapping("/create")
+  //post means the user click the create button
+    @PostMapping("/create")   // @Valid @ModelAttribute("account")->capturing empty form we provide as a empty opject above.
     public String createAccount(@Valid @ModelAttribute("account") AccountDTO accountDTO, BindingResult bindingResult, Model model){
 
         if (bindingResult.hasErrors()){
@@ -55,8 +55,7 @@ public class AccountController {
         }
 
         System.out.println(accountDTO);
-        accountService.createNewAccount(accountDTO.getBalance(),new Date(),
-                accountDTO.getAccountType(), accountDTO.getUserId());
+        accountService.createNewAccount(accountDTO);
 
         return "redirect:/index";
     }
