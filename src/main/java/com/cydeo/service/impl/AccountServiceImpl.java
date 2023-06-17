@@ -40,8 +40,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<AccountDTO> listAllAccount() {
-        /*
-        we are getting list of account from repo(database) but we need to return list of
+        /*we are getting list of account from repo(database) but we need to return list of
         AccountDTO to controller what we need to do is we will convert Account to AccountsDTO
          */
         List<Account> accountlist = accountRepository.findAll();
@@ -53,24 +52,29 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void deleteAccount(Long id) {
         //find the account object based on id
-        AccountDTO accountDTO = accountRepository.findById(id);
+        Account account = accountRepository.findById(id).get();
         //update the accountStatus of that object.
-        accountDTO.setAccountStatus(AccountStatus.DELETED);
+        account.setAccountStatus(AccountStatus.DELETED);
+        // I need to save this set information above, save the updated account object
+        accountRepository.save(account);
     }
 
     @Override
     public void activateAccount(Long id) {
         //find the account object based on id
-        AccountDTO accountDTO = accountRepository.findById(id);
+        Account account  = accountRepository.findById(id).get();
 
         //update the accountStatus of that object.
-        accountDTO.setAccountStatus(AccountStatus.ACTIVE);
+        account.setAccountStatus(AccountStatus.DELETED);
+        //save the updated account object
+        accountRepository.save(account);
 
     }
 
     @Override
     public AccountDTO retrieveById(Long id) {
-
-        return accountRepository.findById(id);
+        //find the account entity based on id, then convert it to dto and return it
+        Account account = accountRepository.findById(id).get();
+        return accountMapper.convertToDTO(account);
     }
 }
