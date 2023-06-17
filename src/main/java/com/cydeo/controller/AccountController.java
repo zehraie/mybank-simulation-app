@@ -35,7 +35,7 @@ public class AccountController {
     public String getCreateForm(Model model){
 
         //empty account object provided
-        model.addAttribute("account", new AccountDTO());
+        model.addAttribute("accountDTO", new AccountDTO()); // "accountDTO"updated  after db connection
         //account type enum needs to fill dropdown
         model.addAttribute("accountTypes", AccountType.values());
         return "account/create-account";
@@ -46,7 +46,7 @@ public class AccountController {
     //trigger createAccount method, create the account based on user input.
   //post means the user click the create button
     @PostMapping("/create")   // @Valid @ModelAttribute("account")->capturing empty form we provide as a empty opject above.
-    public String createAccount(@Valid @ModelAttribute("account") AccountDTO accountDTO, BindingResult bindingResult, Model model){
+    public String createAccount(@Valid @ModelAttribute("accountDTO") AccountDTO accountDTO, BindingResult bindingResult, Model model){
 
         if (bindingResult.hasErrors()){
 
